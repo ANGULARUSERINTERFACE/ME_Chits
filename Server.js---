@@ -1,0 +1,71 @@
+var express         =         require("express");
+var mysql           =         require("mysql");
+var app             =         express();
+
+/*
+  * Configure MySQL parameters.
+*/
+var connection      =         mysql.createConnection({
+	host        :         "localhost",
+	user        :         "root",
+	password    :         "",
+	database     :         "me_chits"
+});
+
+connection.connect(function(error){
+  if(error)
+    {
+      console.log("Problem with MySQL"+error);
+    }
+  else
+    {
+      console.log("Connected with Database");
+    }
+});
+
+/*
+  * Configure Express Server.
+*/
+app.use(express.static(__dirname + '/angular'));
+app.use(express.static(__dirname + '/stylesheet'));
+app.use(express.static(__dirname + '/scripts'));
+/*
+  * Define routing of the application.
+*/
+app.get('/',function(req,res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/load',function(req,res){
+  connection.query("SELECT * from group_master_table",function(err,rows){
+    if(err)
+      {
+        console.log("Problem with MySQL"+err);
+      }
+      else
+        {
+          res.end(JSON.stringify(rows));
+        }
+  });
+});
+
+app.post('/delete',function(req,res){
+	req.on('error', function(err) {
+  // This prints the error message and stack trace to `stderr`.
+  console.error(err.stack);
+}).on('data', function(chunk) {
+    body.push(chunk);
+  }).on('end', function() {
+    body = Buffer.concat(body).toString();
+    // At this point, we have the headers, method, url and body, and can now
+    // do whatever we need to in order to respond to this request.
+  });
+	console.log(req.body);
+	
+});
+/*
+  * Start the Express Web Server.
+*/
+app.listen(3000,function(){
+  console.log("It's Started on PORT 3000");
+});

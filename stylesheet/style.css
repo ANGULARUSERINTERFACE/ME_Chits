@@ -1,0 +1,11 @@
+.wrapper{
+    width: 96%;
+    margin: 2%;
+	padding-bottom: 2%;
+}
+h1.header{
+	text-align: center;
+}
+.alert{
+	color: red;
+}

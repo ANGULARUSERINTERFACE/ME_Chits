@@ -1,0 +1,266 @@
+<html>
+  <head>
+    <title>Two way Data binding Demo</title>
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
+    <script src="angular.js"></script>
+    <script src="app.js"></script>
+    <script src="core.js"></script>
+  </head>
+  <body>
+    <div id="container" class="container wrapper" ng-app='adminPanel' ng-controller='groupControl' >
+		<div id="group_Block">
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h1 class="header">Group Masters </h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<table class="table table-hover table-responsive table-bordered">
+						<thead class="thead-inverse">
+							<tr>
+								<th>Group Name </th>
+								<th>Members Count </th>
+								<th>Chit Amount </th>
+								<th>Due Amount </th>
+								<th>Commission </th>
+								<th>Start Date </th>
+								<th>End Date </th>
+								<th>Due Date </th>
+								<th>Delete</th>
+								<th>Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="data in group_infos" id='{{$index}}'>
+								<td>{{data.GROUP_ID}}</td>
+								<td>{{data.MEMBERS}}</td>
+								<td>{{data.AMOUNT}}</td>
+								<td>{{data.DUE_AMOUNT}}</td>
+								<td>{{data.COMMISSION}}</td>
+								<td>{{data.START_DATE}}</td>
+								<td>{{data.END_DATE}}</td>
+								<td>{{data.DUE_DATE}}</td>
+								<td> <span class="glyphicon glyphicon-minus" ng-click="deleteItems(data)"/></td>
+								<td> <span class="glyphicon glyphicon-edit" ng-click="editWindow(data)" data-toggle="modal" data-target="#editGroup" data-id='{{data}}'/></td>
+							</tr>
+						</tbody>
+						<tfoot class="thead-inverse">
+							<tr>
+								<th>Group Name </th>
+								<th>Members Count </th>
+								<th>Chit Amount </th>
+								<th>Due Amount </th>
+								<th>Commission </th>
+								<th>Start Date </th>
+								<th>End Date </th>
+								<th>Due Date </th>
+								<th>Delete</th>
+								<th>Edit</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<input type="button" class="btn btn-primary" value="Add New Group" id="add_button" data-toggle="modal" data-target="#addGroup"/>
+				</div>
+			</div>
+		</div>
+    
+		<div class="modal fade" id="addGroup" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Add New Group</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Group Name: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="group_name"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Members Count: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="members_count"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Chit Amount: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="chit_amount"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Due Amount: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="due_amount"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Commission: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="commission"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Start Date: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="start_date"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>End Date: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="end_date"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Due Date: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="due_date"/>
+							</div>
+						<br/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" ng-click="addItem()">Save</button>
+						<br/>
+						<p class="alert" id="error" style="display:none;">Please Enter the Unique group ID and fill all the fields!!!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="editGroup" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Edit Group</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Index Number: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="index_number" disabled="true"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Group Name: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_group_name"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Members Count: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_members_count"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Chit Amount: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_chit_amount"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Due Amount: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_due_amount"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Commission: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_commission"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Start Date: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_start_date"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>End Date: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_end_date"/>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<label>Due Date: </label>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="primary-button" value="" id="edit_due_date"/>
+							</div>
+						<br/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" ng-click="editItems()">OK</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+  </body>
+</html>
